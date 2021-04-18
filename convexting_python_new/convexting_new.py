@@ -11,7 +11,6 @@ from operator import lt, le, eq, ne, ge, gt
 #from inputs import var_list_badges_tax
 #from inputs import var_list_badges_tax_df
 from inputs import *
-from logic import *
 
 var_matrix_inputs_complete = pd.read_excel('source_variables.xls', sheet_name="Inputs")  
 var_matrix_badges_complete = pd.read_excel('source_variables.xls', sheet_name="Badges")  
