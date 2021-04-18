@@ -5,9 +5,7 @@ Created on Fri Apr 16 11:15:12 2021
 @author: yang
 """
 import streamlit as st
-import plotly.graph_objects as go
 import pandas as pd
-import numpy as np
 from operator import lt, le, eq, ne, ge, gt
 
 #from inputs import var_list_badges_tax
