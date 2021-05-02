@@ -38,67 +38,63 @@ st.markdown("""
 ### SECTION 1: Step 1, Infof Input #####################
 ########################################################
 ###Sidebar variables
-st.sidebar.title("Step One: Input Info")
+st.sidebar.title("Instructions")
 # expander_sb = st.sidebar.beta_expander("Instructions")
-st.sidebar.header("Instructions")
 # expander_sb.markdown("<b>Three easy steps to generate personalized strategies!</b> ",unsafe_allow_html=True)
 # expander_sb.markdown('<p class="instructions"><b>1.Inputs:</b> punch in your personal stats to see which badges you qualify for!</p>', unsafe_allow_html=True)
 # expander_sb.markdown('<p class="instructions"><b>2.Badges:</b> collect badges (directly or through inputs) to unlock more strategies! </p>', unsafe_allow_html=True)
 # expander_sb.markdown('<p class="instructions"><b>3.Strategies:</b> based on your badges, these strategies likely suit you best!</p>', unsafe_allow_html=True)
-st.sidebar.markdown("<b>Three easy steps to generate personalized strategies!</b> ",unsafe_allow_html=True)
-st.sidebar.markdown('<p class="instructions"><b>1.Inputs:</b> punch in your personal stats and see which badges you&apos;d qualify!</p>', unsafe_allow_html=True)
-st.sidebar.markdown('<p class="instructions"><b>2.Guides:</b> based on your badges, we&apos;ll recommend a few good places to learn more info </p>', unsafe_allow_html=True)
-st.sidebar.markdown('<p class="instructions"><b>3.Actionable Next Steps:</b> check out some actionable next steps to get started on your real estate investment journey! </p>', unsafe_allow_html=True)
+st.sidebar.markdown('<p class="instructions"><b>1.Inputs:</b> punch in your own stats to see personalized recommendations!</p>', unsafe_allow_html=True)
+st.sidebar.markdown('<p class="instructions"><b>2.Guides:</b> Convexting&apos;s none-BS take on real estate investing education!</p>', unsafe_allow_html=True)
+st.sidebar.markdown('<p class="instructions"><b>3.Actionable Next Steps:</b> strategies that create direct monetary impact!</p>', unsafe_allow_html=True)
 
+st.sidebar.title("Input Info")
 
 
 # col1_badges, col2_guides, col3_actionitems = st.beta_columns((1,2,3))
 
 
 ### primary inputs
-sidebar_expander_inputs_1 = st.sidebar.beta_expander("*Most Important Inputs!")
-user_input_occupancy_type =         sidebar_expander_inputs_1.multiselect('1. Occupancy Type', ["Primary Residence","Investment Property","House Hacking","Repair and Renovation"])
-user_input_income =                 sidebar_expander_inputs_1.slider('2. Income ($000, Annual Pre-tax Income)', min_value=0, max_value=500, value=100)
-user_input_credit_score =           sidebar_expander_inputs_1.slider('3. Credit Score', min_value=500, max_value=850, value=700)
-user_input_capital_for_down =       sidebar_expander_inputs_1.slider('4. Money for Down Payment ($000)', min_value=0, max_value=300, value=50)
 
 
 sidebar_expander_inputs_5 = st.sidebar.beta_expander("Real Estate")
-user_input_re_type =          sidebar_expander_inputs_5.multiselect('1. Which of the following  do you own?', ["Primary Residence","Second Home", "Investment Property","House Hacking Property","Value-add Property"])
-user_input_re_num =           sidebar_expander_inputs_5.number_input('2. How many properties do you own?', value=0, step=1)
-user_input_re_value =         sidebar_expander_inputs_5.number_input('3. Market value of all real estate assets?', value=0, step=10000)
-user_input_re_mortgage =      sidebar_expander_inputs_5.number_input('4. Amount of mortgage debt outstanding?', value=0, step=10000)
-
+user_input_re_renter =              sidebar_expander_inputs_5.selectbox('1. I Am Currently...', ["Renting and ready to buy!", "Renting but not ready to buy" ,"Living in Primary Residence", "Other"])
+user_input_re_occupancy_type=       sidebar_expander_inputs_5.multiselect('2. I Want to Buy Property for...', ["Primary Residence","Second Home","Investment Property","House Hacking","Value-add Property"])
+user_input_re_ownership_type =      sidebar_expander_inputs_5.multiselect('3. I Already Own...', ["Primary Residence","Second Home", "Investment Property","House Hacking Property","Value-add Property"])
+user_input_re_num =                 sidebar_expander_inputs_5.number_input('4. How many properties do you own?', value=0, step=1)
+sidebar_expander_inputs_5.write("For property values and mortgages ,  see Assets & Liabilities section")
 
 sidebar_expander_inputs_2 = st.sidebar.beta_expander("Personal")
-user_input_personal_zipcode =       sidebar_expander_inputs_2.number_input('1. Zip Code of Intended Purchase', value=90210)
-user_input__personal_complexity =   sidebar_expander_inputs_2.slider('2. Complexity (e.g. 5 = can handle highly complex tasks)',min_value=1, max_value=5, value=3, step=1)
-user_input__personal_effort =       sidebar_expander_inputs_2.slider('3. Effort (e.g. 5 = willing to put in a ton of effort)',min_value=1, max_value=5, value=3, step=1)
+user_input_credit_score =  sidebar_expander_inputs_2.slider('1. Credit Score', min_value=500, max_value=850, value=700)
+user_input_personal_zipcode =       sidebar_expander_inputs_2.number_input('2. Zip Code of Intended Purchase', value=90210)
+user_input__personal_complexity =   sidebar_expander_inputs_2.slider('3. Complexity (e.g. 5 = can handle highly complex tasks)',min_value=1, max_value=5, value=3, step=1)
+user_input__personal_effort =       sidebar_expander_inputs_2.slider('4. Effort (e.g. 5 = willing to put in a ton of effort)',min_value=1, max_value=5, value=3, step=1)
 
 
 sidebar_expander_inputs_3 = st.sidebar.beta_expander("Income")
-user_input_income_type =            sidebar_expander_inputs_3.selectbox('1. Main Income Type', ["W2","1099","Both", "To Be Determined"])
-user_input_income_lvl=              sidebar_expander_inputs_3.slider('2. Relative Income Level (e.g. 5 = very high vs location)',min_value=1, max_value=5, value=3, step=1)
-user_input_income_stability=        sidebar_expander_inputs_3.slider('3. Income Stability (e.g. 5 = very stable)',min_value=1, max_value=5, value=3, step=1)
+user_input_income_amount =          sidebar_expander_inputs_3.number_input('1. Total Income (Annual Pretax)', value=50000, step=10000)
+user_input_income_type =            sidebar_expander_inputs_3.selectbox('2. Main Income Type', ["W2","1099","Both", "To Be Determined"])
+user_input_income_lvl=              sidebar_expander_inputs_3.slider('3. Relative Income (5 = very high vs location)',min_value=1, max_value=5, value=3, step=1)
+user_input_income_stability=        sidebar_expander_inputs_3.slider('4. Income Stability (5 = very stable)',min_value=1, max_value=5, value=3, step=1)
 
-sidebar_expander_inputs_4 = st.sidebar.beta_expander("Assets")
-user_input_assets_cash =            sidebar_expander_inputs_4.number_input('1. Cash & Savings', value=0, step=1000)
-user_input_assets_stocks_bonds =    sidebar_expander_inputs_4.number_input('2. Stocks & Bonds', value=0, step=1000)
-user_input_assets_real_estate =     sidebar_expander_inputs_4.number_input('3. Real Estate Investments', value=0, step=1000)
-user_input_assets_other =           sidebar_expander_inputs_4.number_input('4. Other Assets/Investments', value=0, step=1000)
-user_input_assets_debts =           sidebar_expander_inputs_4.number_input('5. Total Debts', value=0, step=1000)
-
+sidebar_expander_inputs_4 = st.sidebar.beta_expander("Assets & Liabilities")
+user_input_assets_down =            sidebar_expander_inputs_4.number_input('1. Asset: Money for Down Payment', value=10000, step=10000)
+user_input_assets_cash =            sidebar_expander_inputs_4.number_input('2. Asset: Cash & Liquid Savings', value=10000, step=10000)
+user_input_assets_stocks_bonds =    sidebar_expander_inputs_4.number_input('3. Asset: Stocks & Bonds', value=50000, step=10000)
+user_input_assets_re_pr =           sidebar_expander_inputs_4.number_input('4. Asset: Real Estate Primary Residence', value=0, step=10000)
+user_input_assets_re_ip =           sidebar_expander_inputs_4.number_input('5. Asset: Real Estate Investment Property', value=0, step=10000)
+user_input_assets_other =           sidebar_expander_inputs_4.number_input('6. Asset: Other Assets/Investments', value=0, step=10000)
+user_input_liabilties_mort_pr =     sidebar_expander_inputs_4.number_input('7. Liability: Mortgage on Primary Residence', value=0, step=10000)
+user_input_liabilties_mort_ip =     sidebar_expander_inputs_4.number_input('8. Liability: Mortgages on Investment Prop', value=0, step=10000)
+user_input_assets_consumer_debt =   sidebar_expander_inputs_4.number_input('9. Liability: Consumer & Student Loans', value=0, step=10000)
 
 sidebar_expander_inputs_6 = st.sidebar.beta_expander("Tax")
 user_input_tax_method =             sidebar_expander_inputs_6.text_input('1. State')
-user_input_tax_method =             sidebar_expander_inputs_6.selectbox('1. Filing Method', ["Standard Deduction","Itemized Deduction", "To Be Determined"])
+user_input_tax_method =             sidebar_expander_inputs_6.selectbox('2. Filing Method', ["Standard Deduction","Itemized Deduction", "To Be Determined"])
 user_input_tax_status =             sidebar_expander_inputs_6.selectbox('2. Filing Status', ["Single","Married, Filing Jointly","Married, Filing Separately","Head of Household", "To Be Determined"])
-user_input_tax_marginal_rate=       sidebar_expander_inputs_6.slider('3. Federal Marginal Tax Rate (%)',min_value=0, max_value=37, value=20, step=1)
+user_input_tax_marginal_rate=       sidebar_expander_inputs_6.slider('4. Federal Marginal Tax Rate (%)',min_value=0, max_value=37, value=20, step=1)
 
 # show_only_qualified_flag = st.sidebar.checkbox('Show only badges and strategies that I qualify')
-
-
-
 
 
 
@@ -136,11 +132,43 @@ def badge_qualification_from_input(badge_variable):
     #return true and false of the collection
     return cond1_bool & cond2_bool
 
-st.header("What we've learned about you so far:")
-st.subheader("First-Time Home Buyer [   ]")
-st.subheader("Credit Score Higher Than [   ]")
-st.subheader("Income Type [   ]")
-st.subheader("Likely Qualify for [   ] Mortgage")
+
+#Stats Summary Drop Down Menu
+
+#st.header('Summary of Your Current Stats')
+
+stats_summary_expander = st.beta_expander("Summary of Your Stats: You have completed [5] of [25] inputs")
+summary_col1, summary_col2, summary_col3, summary_col4, summary_col5= stats_summary_expander.beta_columns((1,1,1,1,1))
+summary_col1.subheader('Real Estate')
+summary_col1.write("number of properties owned")
+summary_col1.write(user_input_re_num)
+
+summary_col2.subheader('Personal')
+summary_col3.subheader('Income')
+summary_col4.subheader('Assets')
+summary_col5.subheader('Tax')
+st.write("")
+
+#Stats Summary Drop Down Menu
+
+additional_filter_expander = st.beta_expander("Additional Filters to Optimize Viewing")
+filter_col1, filter_col2, filter_col3, filter_col4, filter_col5 = additional_filter_expander.beta_columns((1,1,1,1,1))
+filter_col1.subheader('Buying 1st Property')
+st.write("")
+st.write("")
+filter_1st_home =       filter_col1.checkbox('Buying 1st Property?', value=False)
+
+filter_col2.subheader('Difficulty Level')
+filter_level=           filter_col2.multiselect("Filter for Difficult Level of Guides and Strategies", ["Beginner","Intermediate","Advanced","Professional"])
+
+filter_col3.subheader('TBD')
+filter_col4.subheader('TBD')
+filter_col5.subheader('TBD')
+
+
+st.write("")
+st.write("")
+st.write("")
 
 badges_title_dict = {
     '1. Foundation': badge_df1,
@@ -198,7 +226,7 @@ def stra_qualification_from_badge(strategy_variable):
 
 col2_guides, col3_actionitems = st.beta_columns((1,2))
 
-col2_guides.header('View Your Personalized Guides')
+col2_guides.header('Personalized Guides')
 guide_top3_qualified_flag = False
 guide_show_all = False
 guide_flag = col2_guides.selectbox('', ['Show Top 3 Impactful Guides', 'Show All Qualified Guides', 'Show All Available Guides'], index=0, key=None)
@@ -265,7 +293,7 @@ for k, v in stra_title_dict.items():
         #     guide_top3_qualified_flag
         temp.markdown(stra_emoji(row['qualified_flag']) + "[{}]".format(row['strategy_name_full']) + "({})".format(row['url']))
 
-col3_actionitems.header('Consider These Actionable Next Steps')
+col3_actionitems.header('Actionable Next Steps with Monetary Impact')
 action_top3_qualified_flag = False
 action_show_all = False
 action_flag = col3_actionitems.selectbox('', ['Show Top 3 Impactful Next Steps', 'Show All Qualified Next Steps', 'Show All Available Next Steps'], index=0, key=None)
