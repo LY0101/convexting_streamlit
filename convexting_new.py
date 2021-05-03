@@ -12,9 +12,9 @@ from operator import lt, le, eq, ne, ge, gt
 #from inputs import var_list_badges_tax_df
 from inputs import *
 
-var_matrix_inputs_complete = pd.read_excel('source_variables.xls', sheet_name="Inputs")  
-var_matrix_badges_complete = pd.read_excel('source_variables.xls', sheet_name="Badges")  
-var_matrix_strategies_complete = pd.read_excel('source_variables.xls', sheet_name="Strategies")  
+# var_matrix_inputs_complete = pd.read_excel('source_variables.xls', sheet_name="Inputs")  
+# var_matrix_badges_complete = pd.read_excel('source_variables.xls', sheet_name="Badges")  
+# var_matrix_strategies_complete = pd.read_excel('source_variables.xls', sheet_name="Strategies")  
 
 
 #Page Setup
@@ -203,7 +203,7 @@ def stra_emoji(bool_var):
         return ":heavy_multiplication_x: "
 
 def stra_qualification_from_badge(strategy_variable):
-    var_matrix_strategy_complete_temp = var_matrix_strategies_complete[var_matrix_strategies_complete['strategy_variable'] == strategy_variable].dropna()
+    var_matrix_strategy_complete_temp = var_matrix_strategies_complete[var_matrix_strategies_complete['strategy_variable'] == strategy_variable]#.dropna()
     #condition 1 check
     # try:
     cond1_temp_variable = var_matrix_strategy_complete_temp['condition1_variable'].iloc[0]
@@ -279,19 +279,20 @@ stra_title_dict = {
     '9. Legal': stra_df9,
     '10. Selling': stra_df10}
 
-
 for k, v in stra_title_dict.items():
     temp = col2_guides.beta_expander(k)
     v['qualified_flag'] = v.apply(lambda x: stra_qualification_from_badge(x['strategy_variable']), axis=1)
+    v = v[v['Type']=='Guide']
     if guide_top3_qualified_flag:
         v = v[v['qualified_flag']==True]
-        v = v.sort_values(by='impact', ascending=False).head(3)
+        v = v.sort_values(by=['impact', 'strategy_num2'], ascending=[False, True]).head(3)
     if guide_show_all is False:
         v = v[v['qualified_flag']==True]
-    for index, row in v[v['Type']=='Guide'].iterrows():
-        # if guide_top3_qualified_flag==True:
-        #     guide_top3_qualified_flag
-        temp.markdown(stra_emoji(row['qualified_flag']) + "[{}]".format(row['strategy_name_full']) + "({})".format(row['url']))
+    for index, row in v.iterrows():
+        display_str = stra_emoji(row['qualified_flag']) + "[{}]".format(row['strategy_name_full']) + "({})".format(row['url'])
+        if guide_top3_qualified_flag==True:
+            display_str += " (Impact Level: {})".format(row['impact'])
+        temp.markdown(display_str)
 
 col3_actionitems.header('Actionable Next Steps with Monetary Impact')
 action_top3_qualified_flag = False
@@ -307,13 +308,17 @@ elif action_flag == 'Show All Available Next Steps':
 for k, v in stra_title_dict.items():
     temp = col3_actionitems.beta_expander(k)
     v['qualified_flag'] = v.apply(lambda x: stra_qualification_from_badge(x['strategy_variable']), axis=1)
+    v = v[v['Type']=='Actionable']
     if action_top3_qualified_flag:
         v = v[v['qualified_flag']==True]
-        v = v.sort_values(by='impact', ascending=False).head(3)
+        v = v.sort_values(by=['impact', 'strategy_num2'], ascending=[False, True]).head(3)
     if action_show_all is False:
         v = v[v['qualified_flag']==True]
-    for index, row in v[v['Type']=='Actionable'].iterrows():
-        temp.markdown(stra_emoji(row['qualified_flag']) + "[{}]".format(row['strategy_name_full']) + "({})".format(row['url']))
+    for index, row in v.iterrows():
+        display_str = stra_emoji(row['qualified_flag']) + "[{}]".format(row['strategy_name_full']) + "({})".format(row['url'])
+        if guide_top3_qualified_flag==True:
+            display_str += " (Impact Level: {}".format(row['impact'])
+        temp.markdown(display_str)
 
 ########################################################
 ### SECTION 3: Writing Functions########################

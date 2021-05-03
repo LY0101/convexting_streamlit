@@ -18,10 +18,6 @@ var_matrix_strategies_complete = pd.read_excel('source_variables.xls', sheet_nam
 ### SECTION 3: Badges#####################
 ########################################################
 
-# var_matrix_badges_mortgage = var_matrix_badges_complete[var_matrix_badges_complete["budget_category"]=="Mortgage"].dropna()
-# var_list_badges_mortgage_name_only_list = list(var_matrix_badges_mortgage['badge_name_full'])
-# var_list_badges_mortgage_name_only_df=var_matrix_badges_mortgage['badge_name_full']
-
 def badge_df(cat, sort_by_impact=False):
     temp_df = var_matrix_badges_complete[var_matrix_badges_complete["budget_category"]==cat].dropna()[['badge_variable', 'badge_name_full',  'url', 'impact']]
     if sort_by_impact is False:
@@ -62,20 +58,8 @@ badge_df10 = badge_df("Selling")
 ########################################################
 ### SECTION 4: Strategies#####################
 ########################################################
-def stra_df(cat, sort_by_impact=False):
-    temp_df = var_matrix_strategies_complete[var_matrix_strategies_complete["strategy_category"]==cat].dropna()[['strategy_variable', 'strategy_name_full',  'url', 'Type', 'impact']]
-    if sort_by_impact is False:
-        return temp_df
-    else:
-        return temp_df.sort_values(by='impact', ascending=False)
+def stra_df(cat):
+    temp_df = var_matrix_strategies_complete[var_matrix_strategies_complete["strategy_category"]==cat][['strategy_variable', 'strategy_name_full',  'url', 'Type', 'impact', 'strategy_num2']]
+    return temp_df
 
-
-# var_matrix_strategies_mortgage = var_matrix_strategies_complete[var_matrix_strategies_complete["strategy_category"]=="Mortgage"].dropna()
-# var_matrix_strategies_mortgage_df = var_matrix_strategies_mortgage['strategy_name_full']
-# var_matrix_strategies_mortgage_list = list(var_matrix_strategies_mortgage['strategy_name_full'])
-
-
-# var_matrix_strategies_tax = var_matrix_strategies_complete[var_matrix_strategies_complete["strategy_category"]=="Tax"].dropna()
-# var_matrix_strategies_tax_df = var_matrix_strategies_tax['strategy_name_full']
-# var_list_strategies_tax_name_only = list(var_matrix_strategies_tax['strategy_name_full'])
 
