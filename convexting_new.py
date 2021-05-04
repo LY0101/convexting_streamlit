@@ -317,7 +317,7 @@ for k, v in stra_title_dict.items():
     for index, row in v.iterrows():
         display_str = stra_emoji(row['qualified_flag']) + "[{}]".format(row['strategy_name_full']) + "({})".format(row['url'])
         if guide_top3_qualified_flag==True:
-            display_str += " (Impact Level: {}".format(row['impact'])
+            display_str += " (Impact Level: {})".format(row['impact'])
         temp.markdown(display_str)
 
 ########################################################
