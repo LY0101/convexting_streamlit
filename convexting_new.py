@@ -6,6 +6,7 @@ Created on Fri Apr 16 11:15:12 2021
 """
 import streamlit as st
 import pandas as pd
+import numpy as np
 from operator import lt, le, eq, ne, ge, gt
 
 #from inputs import var_list_badges_tax
@@ -207,6 +208,8 @@ def stra_qualification_from_badge(strategy_variable):
     #condition 1 check
     # try:
     cond1_temp_variable = var_matrix_strategy_complete_temp['condition1_variable'].iloc[0]
+    if cond1_temp_variable is np.nan:
+        return True
     cond1_user_temp_value = user_badge_dict[cond1_temp_variable]
     cond1_temp_direction = var_matrix_strategy_complete_temp['condition1_direction'].iloc[0]
     cond1_temp_value = int(var_matrix_strategy_complete_temp['condition1_value'].iloc[0])
