@@ -57,12 +57,12 @@ st.sidebar.title("Input Info")
 sidebar_expander_inputs_5 = st.sidebar.beta_expander("Real Estate")
 user_input_re_renter = sidebar_expander_inputs_5.selectbox('1. I Am Currently...', [
                                                            "Renting and ready to buy!", "Renting but not ready to buy", "Living in Primary Residence", "Other"])
-user_input_re_occupancy_type = sidebar_expander_inputs_5.multiselect('2. I Want to Buy Property for...', [
-                                                                     "Primary Residence", "Second Home", "Investment Property", "House Hacking", "Value-add Property"])
-user_input_re_ownership_type = sidebar_expander_inputs_5.multiselect('3. I Already Own...', [
+# user_input_re_occupancy_type = sidebar_expander_inputs_5.multiselect('2. I Want to Buy Property for...', [
+#                                                                      "Primary Residence", "Second Home", "Investment Property", "House Hacking", "Value-add Property"])
+user_input_re_ownership_type = sidebar_expander_inputs_5.multiselect('2. I Already Own...', [
                                                                      "Primary Residence", "Second Home", "Investment Property", "House Hacking Property", "Value-add Property"])
 user_input_re_num = sidebar_expander_inputs_5.number_input(
-    '4. How many properties do you own?', value=0, step=1)
+    '3. How many properties do you own?', value=0, step=1)
 sidebar_expander_inputs_5.write(
     "For property values and mortgages ,  see Assets & Liabilities section")
 
@@ -71,10 +71,10 @@ user_input_credit_score = sidebar_expander_inputs_2.slider(
     '1. Credit Score', min_value=500, max_value=850, value=700)
 user_input_personal_zipcode = sidebar_expander_inputs_2.number_input(
     '2. Zip Code of Intended Purchase', value=90210)
-user_input__personal_complexity = sidebar_expander_inputs_2.slider(
-    '3. Complexity (e.g. 5 = can handle highly complex tasks)', min_value=1, max_value=5, value=3, step=1)
-user_input__personal_effort = sidebar_expander_inputs_2.slider(
-    '4. Effort (e.g. 5 = willing to put in a ton of effort)', min_value=1, max_value=5, value=3, step=1)
+# user_input__personal_complexity = sidebar_expander_inputs_2.slider(
+#     '3. Complexity (e.g. 5 = can handle highly complex tasks)', min_value=1, max_value=5, value=3, step=1)
+# user_input__personal_effort = sidebar_expander_inputs_2.slider(
+#     '4. Effort (e.g. 5 = willing to put in a ton of effort)', min_value=1, max_value=5, value=3, step=1)
 
 
 sidebar_expander_inputs_3 = st.sidebar.beta_expander("Income")
@@ -184,18 +184,27 @@ additional_filter_expander = st.beta_expander(
     "Additional Filters to Optimize Viewing")
 filter_col1, filter_col2, filter_col3, filter_col4, filter_col5 = additional_filter_expander.beta_columns(
     (1, 1, 1, 1, 1))
-filter_col1.subheader('Buying 1st Property')
 st.write("")
 st.write("")
-filter_1st_home = filter_col1.checkbox('Buying 1st Property?', value=False)
 
-filter_col2.subheader('Difficulty Level')
-filter_level = filter_col2.multiselect("Filter for Difficult Level of Guides and Strategies", [
-                                       "Beginner", "Intermediate", "Advanced", "Professional"])
+filter_col1.subheader('I Want to Buy Property for...')
+user_input_re_occupancy_type = filter_col1.multiselect('Select ownership type', [
+                                                                     "Primary Residence", "Second Home", "Investment Property", "House Hacking", "Value-add Property"])
+filter_col2.subheader('Buying 1st Property')
+filter_1st_home = filter_col2.checkbox('Buying 1st Property?', value=False)
 
-filter_col3.subheader('TBD')
-filter_col4.subheader('TBD')
-filter_col5.subheader('TBD')
+filter_col3.subheader('Difficulty Level')
+filter_level = filter_col3.selectbox("Filter for Difficult Level of Guides and Strategies", [
+    "Beginner", "Intermediate", "Advanced", "Professional"], index=1)
+
+filter_col4.subheader('Complexity Level')
+user_input__personal_complexity = filter_col4.slider(
+    'e.g. 5 = willing to tackle complex challenges', min_value=1, max_value=5, value=3, step=1)
+
+filter_col5.subheader('Effort Level')
+user_input__personal_effort = filter_col5.slider(
+    'e.g. 5 = willing to put in a ton of effort', min_value=1, max_value=5, value=3, step=1)
+
 
 
 st.write("")
@@ -281,34 +290,44 @@ elif guide_flag == 'Show All Available Guides':
 # guide_show_all = col2_guides.checkbox('Show all guides available', value=False)
 
 # Foundation
-stra_df1 = stra_df("Foundation")
+stra_df1 = stra_df("Foundation", flag_first_time=filter_1st_home,
+                   difficulty_level=filter_level)
 
 # Resource
-stra_df2 = stra_df("Resource")
+stra_df2 = stra_df("Resource", flag_first_time=filter_1st_home,
+                   difficulty_level=filter_level)
 
 # Analysis
-stra_df3 = stra_df("Analysis")
+stra_df3 = stra_df("Analysis", flag_first_time=filter_1st_home,
+                   difficulty_level=filter_level)
 
 # Buying
-stra_df4 = stra_df("Buying")
+stra_df4 = stra_df("Buying", flag_first_time=filter_1st_home,
+                   difficulty_level=filter_level)
 
 # Mortgage
-stra_df5 = stra_df("Mortgage")
+stra_df5 = stra_df("Mortgage", flag_first_time=filter_1st_home,
+                   difficulty_level=filter_level)
 
 # Tax
-stra_df6 = stra_df("Tax")
+stra_df6 = stra_df("Tax", flag_first_time=filter_1st_home,
+                   difficulty_level=filter_level)
 
 # Value-add
-stra_df7 = stra_df("Value-add")
+stra_df7 = stra_df("Value-add", flag_first_time=filter_1st_home,
+                   difficulty_level=filter_level)
 
 # Property Management
-stra_df8 = stra_df("Property Management")
+stra_df8 = stra_df("Property Management",
+                   flag_first_time=filter_1st_home, difficulty_level=filter_level)
 
 # Legal
-stra_df9 = stra_df("Legal")
+stra_df9 = stra_df("Legal", flag_first_time=filter_1st_home,
+                   difficulty_level=filter_level)
 
 # Selling
-stra_df10 = stra_df("Selling")
+stra_df10 = stra_df("Selling", flag_first_time=filter_1st_home,
+                    difficulty_level=filter_level)
 
 stra_title_dict = {
     '1. Foundation': stra_df1,
@@ -324,8 +343,13 @@ stra_title_dict = {
 
 for k, v in stra_title_dict.items():
     temp = col2_guides.beta_expander(k)
-    v['qualified_flag'] = v.apply(
-        lambda x: stra_qualification_from_badge(x['strategy_variable']), axis=1)
+    # print(v.apply(
+    #     lambda x: stra_qualification_from_badge(x['strategy_variable']), axis=1))
+    try:
+        v['qualified_flag'] = v.apply(
+            lambda x: stra_qualification_from_badge(x['strategy_variable']), axis=1)
+    except:
+        v['qualified_flag'] = False
     v = v[v['Type'] == 'Guide']
     if guide_top3_qualified_flag:
         v = v[v['qualified_flag'] == True]
@@ -352,8 +376,11 @@ elif action_flag == 'Show All Available Next Steps':
 
 for k, v in stra_title_dict.items():
     temp = col3_actionitems.beta_expander(k)
-    v['qualified_flag'] = v.apply(
-        lambda x: stra_qualification_from_badge(x['strategy_variable']), axis=1)
+    try:
+        v['qualified_flag'] = v.apply(
+            lambda x: stra_qualification_from_badge(x['strategy_variable']), axis=1)
+    except:
+        v['qualified_flag'] = False
     v = v[v['Type'] == 'Actionable']
     if action_top3_qualified_flag:
         v = v[v['qualified_flag'] == True]
