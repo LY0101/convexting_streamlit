@@ -9,14 +9,7 @@ import pandas as pd
 import numpy as np
 from operator import lt, le, eq, ne, ge, gt
 
-#from inputs import var_list_badges_tax
-#from inputs import var_list_badges_tax_df
 from inputs import *
-
-# var_matrix_inputs_complete = pd.read_excel('source_variables.xls', sheet_name="Inputs")  
-# var_matrix_badges_complete = pd.read_excel('source_variables.xls', sheet_name="Badges")  
-# var_matrix_strategies_complete = pd.read_excel('source_variables.xls', sheet_name="Strategies")  
-
 
 #Page Setup
 st.set_page_config( layout='wide')
@@ -305,8 +298,6 @@ if action_flag == 'Show Top 3 Impactful Next Steps':
     action_top3_qualified_flag = True
 elif action_flag == 'Show All Available Next Steps':
     action_show_all = True
-# action_top3_qualified_flag = col3_actionitems.checkbox('Show top three impactful actionable next steps', value=True)
-# action_show_all = col3_actionitems.checkbox('Show all next steps available', value=False)
 
 for k, v in stra_title_dict.items():
     temp = col3_actionitems.beta_expander(k)
