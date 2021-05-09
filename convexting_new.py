@@ -169,14 +169,14 @@ stats_summary_expander = st.beta_expander(
 summary_col1, summary_col2, summary_col3, summary_col4, summary_col5 = stats_summary_expander.beta_columns(
     (1, 1, 1, 1, 1))
 summary_col1.subheader('Real Estate')
-summary_col1.write("I currently own {} properties.".format(user_input_re_num))
+summary_col1.write("Currently own properties: {}".format(user_input_re_num))
 
 summary_col2.subheader('Personal')
 summary_col2.write("My credit score: {}".format(user_input_credit_score))
 summary_col2.write("Indended purchase area zipcode: {}".format(user_input_personal_zipcode))
 
 summary_col3.subheader('Income')
-summary_col3.write("Annual pre-tax {} income of ${}".format(user_input_income_type, user_input_income_amount))
+summary_col3.write("Annual pre-tax {} income: ${}".format(user_input_income_type, user_input_income_amount))
 
 summary_col4.subheader('Assets')
 summary_col4.write("Money for Down Payment: ${}".format(user_input_assets_down))
@@ -208,16 +208,16 @@ user_input_re_occupancy_type = filter_col2.multiselect('Select ownership type', 
     "Primary Residence", "Second Home", "Investment Property", "House Hacking", "Value-add Property"])
 
 filter_col3.subheader('Difficulty Level')
-filter_level = filter_col3.selectbox("Filter for Difficult Level of Guides and Strategies", [
+filter_level = filter_col3.selectbox("Filter for difficulty level of guides and strategies", [
     "Beginner", "Intermediate", "Advanced", "Professional"], index=1)
 
 filter_col4.subheader('Complexity Level')
 user_input__personal_complexity = filter_col4.slider(
-    'e.g. 5 = willing to tackle complex challenges', min_value=1, max_value=5, value=3, step=1)
+    'E.g. 5 = willing to tackle complex challenges', min_value=1, max_value=5, value=3, step=1)
 
 filter_col5.subheader('Effort Level')
 user_input__personal_effort = filter_col5.slider(
-    'e.g. 5 = willing to put in a ton of effort', min_value=1, max_value=5, value=3, step=1)
+    'E.g. 5 = willing to put in a ton of effort', min_value=1, max_value=5, value=3, step=1)
 
 
 st.write("")
