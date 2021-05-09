@@ -78,6 +78,6 @@ def viewing_filter(df, flag_first_time=False, difficulty_level='Intermediate'):
         df = df[(df['difficulty_level'] == 'Beginner') | (
             df['difficulty_level'] == 'Intermediate')]
     elif difficulty_level == 'Advanced':
-        df = df[~df['difficulty_level'] == 'Professional']
+        df = df[~(df['difficulty_level'] == 'Professional')]
 
     return df
