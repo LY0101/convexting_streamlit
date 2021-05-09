@@ -187,11 +187,12 @@ filter_col1, filter_col2, filter_col3, filter_col4, filter_col5 = additional_fil
 st.write("")
 st.write("")
 
-filter_col1.subheader('I Want to Buy Property for...')
-user_input_re_occupancy_type = filter_col1.multiselect('Select ownership type', [
-                                                                     "Primary Residence", "Second Home", "Investment Property", "House Hacking", "Value-add Property"])
-filter_col2.subheader('Buying 1st Property')
-filter_1st_home = filter_col2.checkbox('Buying 1st Property?', value=False)
+filter_col1.subheader('Buying 1st Property')
+filter_1st_home = filter_col1.checkbox('Buying 1st Property?', value=False)
+
+filter_col2.subheader('I Want to Buy Property for...')
+user_input_re_occupancy_type = filter_col2.multiselect('Select ownership type', [
+    "Primary Residence", "Second Home", "Investment Property", "House Hacking", "Value-add Property"])
 
 filter_col3.subheader('Difficulty Level')
 filter_level = filter_col3.selectbox("Filter for Difficult Level of Guides and Strategies", [
@@ -204,7 +205,6 @@ user_input__personal_complexity = filter_col4.slider(
 filter_col5.subheader('Effort Level')
 user_input__personal_effort = filter_col5.slider(
     'e.g. 5 = willing to put in a ton of effort', min_value=1, max_value=5, value=3, step=1)
-
 
 
 st.write("")
@@ -290,44 +290,34 @@ elif guide_flag == 'Show All Available Guides':
 # guide_show_all = col2_guides.checkbox('Show all guides available', value=False)
 
 # Foundation
-stra_df1 = stra_df("Foundation", flag_first_time=filter_1st_home,
-                   difficulty_level=filter_level)
+stra_df1 = stra_df("Foundation")
 
 # Resource
-stra_df2 = stra_df("Resource", flag_first_time=filter_1st_home,
-                   difficulty_level=filter_level)
+stra_df2 = stra_df("Resource")
 
 # Analysis
-stra_df3 = stra_df("Analysis", flag_first_time=filter_1st_home,
-                   difficulty_level=filter_level)
+stra_df3 = stra_df("Analysis")
 
 # Buying
-stra_df4 = stra_df("Buying", flag_first_time=filter_1st_home,
-                   difficulty_level=filter_level)
+stra_df4 = stra_df("Buying")
 
 # Mortgage
-stra_df5 = stra_df("Mortgage", flag_first_time=filter_1st_home,
-                   difficulty_level=filter_level)
+stra_df5 = stra_df("Mortgage")
 
 # Tax
-stra_df6 = stra_df("Tax", flag_first_time=filter_1st_home,
-                   difficulty_level=filter_level)
+stra_df6 = stra_df("Tax")
 
 # Value-add
-stra_df7 = stra_df("Value-add", flag_first_time=filter_1st_home,
-                   difficulty_level=filter_level)
+stra_df7 = stra_df("Value-add")
 
 # Property Management
-stra_df8 = stra_df("Property Management",
-                   flag_first_time=filter_1st_home, difficulty_level=filter_level)
+stra_df8 = stra_df("Property Management")
 
 # Legal
-stra_df9 = stra_df("Legal", flag_first_time=filter_1st_home,
-                   difficulty_level=filter_level)
+stra_df9 = stra_df("Legal")
 
 # Selling
-stra_df10 = stra_df("Selling", flag_first_time=filter_1st_home,
-                    difficulty_level=filter_level)
+stra_df10 = stra_df("Selling")
 
 stra_title_dict = {
     '1. Foundation': stra_df1,
@@ -343,25 +333,25 @@ stra_title_dict = {
 
 for k, v in stra_title_dict.items():
     temp = col2_guides.beta_expander(k)
-    # print(v.apply(
-    #     lambda x: stra_qualification_from_badge(x['strategy_variable']), axis=1))
     try:
         v['qualified_flag'] = v.apply(
             lambda x: stra_qualification_from_badge(x['strategy_variable']), axis=1)
     except:
         v['qualified_flag'] = False
     v = v[v['Type'] == 'Guide']
-    if guide_top3_qualified_flag:
-        v = v[v['qualified_flag'] == True]
-        v = v.sort_values(by=['impact', 'strategy_num2'],
-                          ascending=[False, True]).head(3)
     if guide_show_all is False:
+        v = viewing_filter(v, flag_first_time=filter_1st_home,
+                           difficulty_level=filter_level)
         v = v[v['qualified_flag'] == True]
+        if guide_top3_qualified_flag:
+            v = v.sort_values(by=['impact', 'strategy_num2'],
+                              ascending=[False, True]).head(3)
+
     for index, row in v.iterrows():
         display_str = stra_emoji(row['qualified_flag']) + "[{}]".format(
             row['strategy_name_full']) + "({})".format(row['url'])
         if guide_top3_qualified_flag == True:
-            display_str += " (Impact Level: {})".format(row['impact'])
+            display_str += " (Impact: {})".format(row['impact'])
         temp.markdown(display_str)
 
 col3_actionitems.header('Actionable Next Steps with Monetary Impact')
@@ -382,17 +372,20 @@ for k, v in stra_title_dict.items():
     except:
         v['qualified_flag'] = False
     v = v[v['Type'] == 'Actionable']
-    if action_top3_qualified_flag:
-        v = v[v['qualified_flag'] == True]
-        v = v.sort_values(by=['impact', 'strategy_num2'],
-                          ascending=[False, True]).head(3)
     if action_show_all is False:
         v = v[v['qualified_flag'] == True]
+        v = viewing_filter(v, flag_first_time=filter_1st_home,
+                           difficulty_level=filter_level)
+        if action_top3_qualified_flag:
+            v = v[v['qualified_flag'] == True]
+            v = v.sort_values(by=['impact', 'strategy_num2'],
+                              ascending=[False, True]).head(3)
+
     for index, row in v.iterrows():
         display_str = stra_emoji(row['qualified_flag']) + "[{}]".format(
             row['strategy_name_full']) + "({})".format(row['url'])
         if guide_top3_qualified_flag == True:
-            display_str += " (Impact Level: {})".format(row['impact'])
+            display_str += " (Impact: {})".format(row['impact'])
         temp.markdown(display_str)
 
 ########################################################

@@ -63,16 +63,21 @@ badge_df10 = badge_df("Selling")
 ########################################################
 ### SECTION 4: Strategies#####################
 ########################################################
-def stra_df(cat, flag_first_time=False, difficulty_level='Intermediate'):
+def stra_df(cat):
     temp_df = var_matrix_strategies_complete[var_matrix_strategies_complete["strategy_category"] == cat][[
         'strategy_variable', 'strategy_name_full',  'url', 'Type', 'impact', 'strategy_num2', 'first_time_buyer', 'difficulty_level']]
-    # if flag_first_time:
-    #     temp_df = temp_df[temp_df['first_time_buyer'] == 1]
-    if difficulty_level == 'Beginner':
-        temp_df = temp_df[temp_df['difficulty_level'] == 'Beginner']
-    elif difficulty_level == 'Intermediate':
-        temp_df = temp_df[(temp_df['difficulty_level'] == 'Beginner') | (
-            temp_df['difficulty_level'] == 'Intermediate')]
-    elif difficulty_level == 'Advanced':
-        temp_df = temp_df[~temp_df['difficulty_level'] == 'Professional']
     return temp_df
+
+
+def viewing_filter(df, flag_first_time=False, difficulty_level='Intermediate'):
+    if flag_first_time:
+        df = df[df['first_time_buyer'] == 1]
+    if difficulty_level == 'Beginner':
+        df = df[df['difficulty_level'] == 'Beginner']
+    elif difficulty_level == 'Intermediate':
+        df = df[(df['difficulty_level'] == 'Beginner') | (
+            df['difficulty_level'] == 'Intermediate')]
+    elif difficulty_level == 'Advanced':
+        df = df[~df['difficulty_level'] == 'Professional']
+
+    return df
