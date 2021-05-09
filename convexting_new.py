@@ -108,7 +108,7 @@ user_input_assets_consumer_debt = sidebar_expander_inputs_4.number_input(
     '9. Liability: Consumer & Student Loans', value=0, step=10000)
 
 sidebar_expander_inputs_6 = st.sidebar.beta_expander("Tax")
-user_input_tax_method = sidebar_expander_inputs_6.text_input('1. State')
+user_input_tax_state = sidebar_expander_inputs_6.text_input('1. State')
 user_input_tax_method = sidebar_expander_inputs_6.selectbox(
     '2. Filing Method', ["Standard Deduction", "Itemized Deduction", "To Be Determined"])
 user_input_tax_status = sidebar_expander_inputs_6.selectbox('2. Filing Status', [
@@ -169,13 +169,26 @@ stats_summary_expander = st.beta_expander(
 summary_col1, summary_col2, summary_col3, summary_col4, summary_col5 = stats_summary_expander.beta_columns(
     (1, 1, 1, 1, 1))
 summary_col1.subheader('Real Estate')
-summary_col1.write("number of properties owned")
-summary_col1.write(user_input_re_num)
+summary_col1.write("I currently own {} properties.".format(user_input_re_num))
 
 summary_col2.subheader('Personal')
+summary_col2.write("My credit score: {}".format(user_input_credit_score))
+summary_col2.write("Indended purchase area zipcode: {}".format(user_input_personal_zipcode))
+
 summary_col3.subheader('Income')
+summary_col3.write("Annual pre-tax {} income of ${}".format(user_input_income_type, user_input_income_amount))
+
 summary_col4.subheader('Assets')
+summary_col4.write("Money for Down Payment: ${}".format(user_input_assets_down))
+assets_total = user_input_assets_cash+user_input_assets_stocks_bonds+user_input_assets_re_pr+user_input_assets_re_ip+user_input_assets_other
+summary_col4.write("Assets: ${}".format(assets_total))
+liabilities_total = user_input_liabilties_mort_pr+ user_input_liabilties_mort_ip+user_input_assets_consumer_debt
+summary_col4.write("Liabilities: ${}".format(liabilities_total))
+
 summary_col5.subheader('Tax')
+summary_col5.write("I file in {} as {} Status using {} Method.".format(user_input_tax_state, user_input_tax_status, user_input_tax_method))
+summary_col5.write("Federal Marginal Tax Rate: {}%".format(user_input_tax_marginal_rate))
+
 st.write("")
 
 # Stats Summary Drop Down Menu
