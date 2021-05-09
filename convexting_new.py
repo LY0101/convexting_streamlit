@@ -108,7 +108,7 @@ user_input_assets_consumer_debt = sidebar_expander_inputs_4.number_input(
     '9. Liability: Consumer & Student Loans', value=0, step=10000)
 
 sidebar_expander_inputs_6 = st.sidebar.beta_expander("Tax")
-user_input_tax_state = sidebar_expander_inputs_6.text_input('1. State')
+user_input_tax_state = sidebar_expander_inputs_6.text_input('1. State', 'CA')
 user_input_tax_method = sidebar_expander_inputs_6.selectbox(
     '2. Filing Method', ["Standard Deduction", "Itemized Deduction", "To Be Determined"])
 user_input_tax_status = sidebar_expander_inputs_6.selectbox('2. Filing Status', [
