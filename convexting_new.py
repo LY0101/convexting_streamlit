@@ -361,11 +361,10 @@ for k, v in stra_title_dict.items():
                               ascending=[False, True]).head(3)
 
     for index, row in v.iterrows():
-        display_str = stra_emoji(row['qualified_flag']) + "[{}]".format(
-            row['strategy_name_full']) + "({})".format(row['url'])
+        display_str = stra_emoji(row['qualified_flag']) + "<a href='https://{}'>{}</a>".format(row['url'], row['strategy_name_full'])
         if guide_top3_qualified_flag == True:
             display_str += " (Impact: {})".format(row['impact'])
-        temp.markdown(display_str)
+        temp.markdown(display_str, unsafe_allow_html=True)
 
 col3_actionitems.header('Actionable Next Steps with Monetary Impact')
 action_top3_qualified_flag = False
@@ -395,11 +394,10 @@ for k, v in stra_title_dict.items():
                               ascending=[False, True]).head(3)
 
     for index, row in v.iterrows():
-        display_str = stra_emoji(row['qualified_flag']) + "[{}]".format(
-            row['strategy_name_full']) + "({})".format(row['url'])
+        display_str = stra_emoji(row['qualified_flag']) + "<a href='https://{}'>{}</a>".format(row['url'], row['strategy_name_full'])
         if guide_top3_qualified_flag == True:
             display_str += " (Impact: {})".format(row['impact'])
-        temp.markdown(display_str)
+        temp.markdown(display_str, unsafe_allow_html=True)
 
 ########################################################
 ### SECTION 3: Writing Functions########################
